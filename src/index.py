@@ -15,7 +15,7 @@ from fastapi import BackgroundTasks, FastAPI
 import time
 app = FastAPI()
 
-def selenium():
+def selenium(email: str, message=""):
     BROWSERSTACK_USERNAME = "tranngocminh_AFiWRo"
     BROWSERSTACK_ACCESS_KEY = "8anY1yMSZhs7qsHCzLeD"
     URL = "https://hub.browserstack.com/wd/hub"
@@ -34,7 +34,7 @@ def selenium():
     driver = webdriver.Remote(
         command_executor=URL,
         options=options)
-    driver.get("https://www.synthesia.io/features/avatars")
+    driver.get(email)
     link_avartar=[]
     time.sleep(5)
     value = driver.find_elements(By.TAG_NAME, 'video')
@@ -51,8 +51,8 @@ def selenium():
     driver.quit()
     return k5
 @app.get("/")
-async def root(background_tasks: BackgroundTasks):
-    background_tasks.add_task(selenium)
+async def root(email: str,background_tasks: BackgroundTasks):
+    background_tasks.add_task(selenium, email, message="some notification")
     return {"message": "xin chào bạn"}
 
 
