@@ -11,6 +11,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from fastapi import BackgroundTasks, FastAPI
 app = FastAPI()
 
 def selenium():
@@ -36,8 +37,8 @@ def selenium():
     driver.quit()
     print("test")
 @app.get("/")
-async def root():
-    selenium()
+async def root(background_tasks: BackgroundTasks):
+    background_tasks.add_task(selenium)
     return {"message": "xin chào bạn"}
 
 
