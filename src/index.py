@@ -10,8 +10,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 import chromedriver_autoinstaller
 def write_notification(url: str, message=""):
-    driver = webdriver.Chrome()
-    driver.get("http://www.python.org")
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+
+    driver = webdriver.Chrome(options=options)
 
 @app.post("/send-notification/{email}")
 async def send_notification(email: str, background_tasks: BackgroundTasks):
