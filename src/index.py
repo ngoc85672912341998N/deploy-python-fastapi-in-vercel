@@ -38,7 +38,7 @@ def selenium():
     link_avartar=[]
     time.sleep(5)
     value = driver.find_elements(By.TAG_NAME, 'video')
-    file1 = open("data_avartar.csv","w")
+    k5=[]
     for value in value:
         print(value.get_attribute("data-src"))
         k3=value.get_attribute("data-src")
@@ -47,7 +47,7 @@ def selenium():
         print(k10.split("/")[k-1].split(".")[0])
         k5= str(k10.split("/")[k-1].split(".")[0])
         k4 =str(k5)+","+str(k3)+"\n"
-        file1.write(k4+"\n")  
+        k5.append(k4)
     driver.quit()
     print("test")
 @app.get("/")
