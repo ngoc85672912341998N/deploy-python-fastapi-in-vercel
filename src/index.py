@@ -37,7 +37,6 @@ def selenium():
     print("test")
 @app.get("/")
 async def root():
-    selenium()
     return {"message": "xin chào bạn"}
 
 
