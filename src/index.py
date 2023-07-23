@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from fastapi import BackgroundTasks, FastAPI
+import time
 app = FastAPI()
 
 def selenium():
@@ -34,6 +35,19 @@ def selenium():
         command_executor=URL,
         options=options)
     driver.get("https://www.synthesia.io/features/avatars")
+    link_avartar=[]
+    time.sleep(5)
+    value = driver.find_elements(By.TAG_NAME, 'video')
+    file1 = open("data_avartar.csv","w")
+    for value in value:
+        print(value.get_attribute("data-src"))
+        k3=value.get_attribute("data-src")
+        k10=str(k3)
+        k= len(k10.split("/"))
+        print(k10.split("/")[k-1].split(".")[0])
+        k5= str(k10.split("/")[k-1].split(".")[0])
+        k4 =str(k5)+","+str(k3)+"\n"
+        file1.write(k4+"\n")  
     driver.quit()
     print("test")
 @app.get("/")
